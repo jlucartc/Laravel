@@ -21,16 +21,22 @@ Route::get('esqueci-senha',function(){
 
 });
 
-Route::post('login','Auth/LoginController@');
+//Route::post('login','Auth/LoginController');
 
-Route::get('registrar',function(){
+Route::prefix('registrar')->group(function(){
+
+  Route::get('/',function(){
 
     return view('Login/registrar');
 
+  })->name('registrar');
+
+  Route::post('verificar','Auth\RegisterController@validator')->name('registrar.verificar');
+
 });
 
-Route::post('registrar/verificar','Auth/RegisterController@validator');
+Route::get('/home', 'HomeController@index')->name('home');
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

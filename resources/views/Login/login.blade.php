@@ -13,7 +13,7 @@
       <div class="col"></div>
       <div class="col-6">
           <div class="card">
-                <form class="form" action="{{ route('login') }}" method="post">
+                <form class="form" action="#" method="post">
                   <div class="card-body">
                       <div class="form-group"><input class="form-control" type="text" name="login" value="" placeholder="Digite seu login" autocomplete="username"></div>
                       <div class="form-group"><input class="form-control" type="password" name="senha" value="" placeholder="Digite sua senha" autocomplete="current-password"></div>
@@ -25,7 +25,7 @@
                       <button class="btn btn-primary btn-block" type="submit" name="button">Ir</button>
                   </div>
                   <div class="card-footer">
-                      <a href="/esqueci-senha" class="text-sm">Esqueci minha senha</a><a href="/registrar">Fazer cadastro</a>
+                      <div class="col"><a href="/esqueci-senha" class="text-sm">Esqueci minha senha</a></div><div class="col"><a href="{{ route('registrar') }}">Fazer cadastro</a></div>
                   </div>
                 </form>
           </div>
