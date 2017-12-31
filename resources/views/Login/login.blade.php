@@ -13,7 +13,7 @@
       <div class="col"></div>
       <div class="col-6">
           <div class="card">
-                <form class="form" action="index.html" method="post">
+                <form class="form" action="{{ route('login') }}" method="post">
                   <div class="card-body">
                       <div class="form-group"><input class="form-control" type="text" name="login" value="" placeholder="Digite seu login" autocomplete="username"></div>
                       <div class="form-group"><input class="form-control" type="password" name="senha" value="" placeholder="Digite sua senha" autocomplete="current-password"></div>

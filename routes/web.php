@@ -15,12 +15,22 @@ Route::get('/', function () {
     return view('Login/login');
 });
 
-Route::get('/esqueci-senha',function(){
+Route::get('esqueci-senha',function(){
 
     return view('Login/esqueceu-senha');
 
 });
 
-Auth::routes();
+Route::post('login','Auth/LoginController@');
+
+Route::get('registrar',function(){
+
+    return view('Login/registrar');
+
+});
+
+Route::post('registrar/verificar','Auth/RegisterController@validator');
+
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
