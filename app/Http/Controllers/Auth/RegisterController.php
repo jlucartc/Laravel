@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -68,4 +69,24 @@ class RegisterController extends Controller
             'password' => bcrypt($data['senha']),
         ]);
     }
+
+    public function registrar(){
+
+        return view('registrar');
+
+    }
+
+    public function esqueciSenha(){
+
+        return view('esqueci-senha');
+
+    }
+
+    public function mandarEmail(Request $request){
+
+      //return view('data')->with('request',$request);
+      echo $request->get('email');
+
+    }
+
 }

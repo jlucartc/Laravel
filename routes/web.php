@@ -11,32 +11,30 @@
 |
 */
 
+Auth::Routes();
+
+Route::get('login',function(){
+
+  return view('login');
+
+});
+
+Route::get('home','HomeController@index')->name('home');
+
+Route::get('registrar','Auth\RegisterController@registrar')->name('registrar');
+
+Route::get('esqueci-senha','Auth\RegisterController@esqueciSenha')->name('esqueci-senha');
+
+Route::post('email','OrderController@ship');
+
 Route::get('/', function () {
-    return view('Login/login');
+  if(Auth::check()){
+
+    return view('home');
+
+  }else{
+
+    return view('login');
+
+  }
 });
-
-Route::get('esqueci-senha',function(){
-
-    return view('Login/esqueceu-senha');
-
-});
-
-//Route::post('login','Auth/LoginController');
-
-Route::prefix('registrar')->group(function(){
-
-  Route::get('/',function(){
-
-    return view('Login/registrar');
-
-  })->name('registrar');
-
-  Route::post('verificar','Auth\RegisterController@validator')->name('registrar.verificar');
-
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
