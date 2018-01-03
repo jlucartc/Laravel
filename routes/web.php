@@ -17,20 +17,20 @@ Route::get('login',function(){
 
   return view('login');
 
-});
+})->name('login');
 
-Route::get('home','HomeController@index')->name('home');
+Route::get('home','HomeController@index');
 
 Route::get('registrar','Auth\RegisterController@registrar')->name('registrar');
 
 Route::get('esqueci-senha','Auth\RegisterController@esqueciSenha')->name('esqueci-senha');
 
-Route::post('email','OrderController@ship');
+Route::get('logout','Auth\LoginController@logout');
 
 Route::get('/', function () {
-  if(Auth::check()){
-
-    return view('home');
+  if( Auth::check()){
+    //echo Auth::user();
+    return view('App/home');
 
   }else{
 

@@ -8,7 +8,7 @@
         <div class="container">
           <div class="card">
             <div class="card-body">
-              <form class="" action="{{ action('OrderController@ship') }}" method="post">
+              <form class="" action="#" method="post">
                 {{ csrf_field() }}
                 <div class="form-group"><input class="form-control" type="text" name="email" value="" placeholder="Digite seu email" autocomplete="off"></div>
                 <button class="btn btn-primary"type="submit" name="button">Recuperar Senha</button>
