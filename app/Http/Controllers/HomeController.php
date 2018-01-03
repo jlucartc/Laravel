@@ -23,7 +23,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        echo "Home";
-        //return view('auth/register');
+        return redirect('/');
+    }
+
+    public function adicionar(){
+
+        return view('App/adicionar-arquivo');
+
+    }
+
+    public function info(){
+
+        return view('App/tela-arquivo');
+
     }
 }

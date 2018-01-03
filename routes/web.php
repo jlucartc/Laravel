@@ -11,13 +11,9 @@
 |
 */
 
-Auth::Routes();
+//Auth::Routes();
 
-Route::get('login',function(){
-
-  return view('login');
-
-})->name('login');
+Route::post('login','Auth\LoginController@login');
 
 Route::get('home','HomeController@index');
 
@@ -25,11 +21,20 @@ Route::get('registrar','Auth\RegisterController@registrar')->name('registrar');
 
 Route::get('esqueci-senha','Auth\RegisterController@esqueciSenha')->name('esqueci-senha');
 
-Route::get('logout','Auth\LoginController@logout');
+Route::get('logout','Auth\LoginController@logout')->name('logout');
+
+Route::prefix('auth')->group(function(){
+
+  Route::get('home','HomeController@index')->middleware('autorizar');
+  Route::get('adicionar','HomeController@adicionar')->middleware('autorizar');
+  Route::get('info','HomeController@info')->middleware('autorizar');
+
+
+});
 
 Route::get('/', function () {
   if( Auth::check()){
-    //echo Auth::user();
+
     return view('App/home');
 
   }else{
@@ -37,4 +42,4 @@ Route::get('/', function () {
     return view('login');
 
   }
-});
+})->name('index');
