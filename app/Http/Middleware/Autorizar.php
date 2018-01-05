@@ -20,6 +20,7 @@ class Autorizar
         if( Auth::check() ){
               return $next($request);
         }
-        return redirect('registrar');
+
+        return redirect('/');
     }
 }

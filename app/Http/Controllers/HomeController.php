@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('autorizar');
     }
 
     /**
@@ -26,16 +26,16 @@ class HomeController extends Controller
     public function index()
     {
 
-      /*if(Auth::check()){
+      if(Auth::check()){
 
         $arquivos = Db::connection('mysql')->table('arquivos')->get()->all();
         return view('App/home')->with('arquivos',$arquivos);
 
-      }else{*/
+      }else{
 
         return view('login');
 
-      //}
+      }
     }
 
     public function adicionar(){

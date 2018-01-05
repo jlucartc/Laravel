@@ -17,7 +17,7 @@ Route::post('privado','UploadController@privado')->name('privado');
 
 Route::post('publico','UploadController@publico')->name('publico');
 
-Route::post('login','Auth\LoginController@login');
+Route::post('login','Auth\LoginController@login')->name('login');
 
 Route::get('home','HomeController@index');
 
@@ -38,7 +38,8 @@ Route::prefix('auth')->group(function(){
 
 });
 
-Route::get('/','HomeController@index')->name('index');
+Route::get('/','HomeController@index');
+
 /*
 Route::prefix('/')->group(function(){
   if( Auth::check()){
