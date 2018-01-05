@@ -13,9 +13,15 @@
 
 //Auth::Routes();
 
+Route::post('privado','UploadController@privado')->name('privado');
+
+Route::post('publico','UploadController@publico')->name('publico');
+
 Route::post('login','Auth\LoginController@login');
 
 Route::get('home','HomeController@index');
+
+Route::post('register','Auth\RegisterController@register')->name('register');
 
 Route::get('registrar','Auth\RegisterController@registrar')->name('registrar');
 
@@ -32,14 +38,20 @@ Route::prefix('auth')->group(function(){
 
 });
 
-Route::get('/', function () {
+Route::get('/','HomeController@index')->name('index');
+/*
+Route::prefix('/')->group(function(){
   if( Auth::check()){
 
-    return view('App/home');
+    Route::get('/','HomeController@index');
 
   }else{
 
-    return view('login');
+    Route::get('/','');
 
   }
-})->name('index');
+});
+
+Route::get('/', function () {
+
+})->name('index');*/

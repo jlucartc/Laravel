@@ -63,6 +63,22 @@ return [
             'bucket' => env('AWS_BUCKET'),
         ],
 
+        'privado' => [
+
+            'driver' => 'local',
+            'root' => storage_path('app/privado'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'private',
+
+        ],
+
+        'publico' => [
+            'driver' => 'local',
+            'root' => storage_path('app/publico'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
 ];
