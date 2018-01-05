@@ -19,7 +19,7 @@
                       {{$arquivos[$i]->nome}}
                   </div>
                   <div class="card-body">
-                      <a href="#"><img src="{{ asset('storage/'.$arquivos[$i]->rota) }}" alt=""></a>
+                      <a href="#"><img style="width:100%;height:100%" class="rounded" src="{{ asset('storage/1/imagens/arquivo.png') }}" alt=""></a>
                   </div>
                 </div>
             </div>

@@ -11,15 +11,27 @@
 |
 */
 
-//Auth::Routes();
+/*Route::get('images/{filename}', function ($filename)
+{
+    $path = storage_path().$filename;
+
+    if(!File::exists($path)) abort(404);
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    echo $response;
+
+})->name('images');*/
 
 Route::post('privado','UploadController@privado')->name('privado');
 
 Route::post('publico','UploadController@publico')->name('publico');
 
 Route::post('login','Auth\LoginController@login')->name('login');
-
-Route::get('home','HomeController@index');
 
 Route::post('register','Auth\RegisterController@register')->name('register');
 
@@ -29,30 +41,10 @@ Route::get('esqueci-senha','Auth\RegisterController@esqueciSenha')->name('esquec
 
 Route::get('logout','Auth\LoginController@logout')->name('logout');
 
-Route::prefix('auth')->group(function(){
+Route::get('home','HomeController@index')->name('home')->middleware('autorizar');
 
-  Route::get('home','HomeController@index')->middleware('autorizar');
-  Route::get('adicionar','HomeController@adicionar')->middleware('autorizar');
-  Route::get('info','HomeController@info')->middleware('autorizar');
+Route::get('adicionar','HomeController@adicionar')->name('adicionar')->middleware('autorizar');
 
-
-});
+Route::get('info','HomeController@info')->name('info')->middleware('info');
 
 Route::get('/','HomeController@index');
-
-/*
-Route::prefix('/')->group(function(){
-  if( Auth::check()){
-
-    Route::get('/','HomeController@index');
-
-  }else{
-
-    Route::get('/','');
-
-  }
-});
-
-Route::get('/', function () {
-
-})->name('index');*/

@@ -17,10 +17,12 @@ class Autorizar
      */
     public function handle($request, Closure $next)
     {
-        if( Auth::check() ){
-              return $next($request);
+        if( !Auth::check() ){
+
+            return redirect('/');
+
         }
 
-        return redirect('/');
+        return $next($request);
     }
 }

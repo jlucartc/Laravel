@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -29,7 +30,8 @@ class HomeController extends Controller
       if(Auth::check()){
 
         $arquivos = Db::connection('mysql')->table('arquivos')->get()->all();
-        return view('App/home')->with('arquivos',$arquivos);
+        //$contents = Storage::get('arquivo.png');
+        return view('App/home',['arquivos' => $arquivos]);
 
       }else{
 
@@ -47,6 +49,12 @@ class HomeController extends Controller
     public function info(){
 
         return view('App/tela-arquivo');
+
+    }
+
+    public function imagem(){
+
+        return "<img src='".Storage::disk('publico')->url('/1/Shrek.jpg')."' style='width:300;height:300;'>";
 
     }
 }

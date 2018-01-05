@@ -28,7 +28,7 @@ class UploadController extends Controller
 
     public function publico(Request $request){
 
-        $diskName = 'publico';
+        $diskName = 'public';
 
         if(!Storage::disk($diskName)->exists(Auth::user()->id.'/imagens')){
 
@@ -38,11 +38,8 @@ class UploadController extends Controller
 
         $rota = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/imagens',$request->arquivo,$request->nome);
 
-        DB::connection('mysql')->insert('insert into arquivos(nome,tamanho,rota) values(?,?,?)',[$request->nome,(Storage::disk($diskName)->size($rota))/1000,$rota]);
+        DB::connection('mysql')->insert('insert into arquivos(user_id,disk,nome,tamanho,rota) values(?,?,?,?,?)',[Auth::user()->id,$diskName,$request->nome,(Storage::disk($diskName)->size($rota))/1000,$rota]);
 
-        echo Storage::disk($diskName)->size($rota);
-
-        echo "Imagem pública criada!";
     }
 
 }
