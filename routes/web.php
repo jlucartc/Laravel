@@ -27,9 +27,9 @@
 
 })->name('images');*/
 
-Route::post('privado','UploadController@privado')->name('privado');
+Route::get('arquivo','ViewsController@arquivo');
 
-Route::post('publico','UploadController@publico')->name('publico');
+Route::post('imagem','UploadController@imagem')->name('imagem');
 
 Route::post('login','Auth\LoginController@login')->name('login');
 
