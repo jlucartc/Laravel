@@ -69,4 +69,14 @@ class ViewsController extends Controller
       echo view('App/tela-arquivo',['rota' => $request->rota]);
 
     }
+
+    public function deletarImagem(Request $request){
+
+      $arquivo = DB::table('arquivos')->select()->where('rota','=',$request->rota)->get()->first();
+      DB::delete('delete from arquivos where rota = ?',[$request->rota]);
+
+      Storage::delete($arquivo->rota);
+
+      return redirect('/');
+    }
 }

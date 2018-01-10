@@ -14,7 +14,7 @@
       <div class="row">
         @foreach($arquivos as $arquivo)
             <div class="col-sm-4">
-                <div class="card">
+                <div class="card mb-4">
                   <a href="{{ route('arquivo',['rota' => $arquivo->rota]) }}"> <img class="card-img-top" src="{{ asset($arquivo->rota) }}" alt=""> </a>
                   <div class="card-body">
                       <p>{{ $arquivo->nome }}</p>
