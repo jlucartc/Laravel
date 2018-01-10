@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class ViewsController extends Controller
 {
     public function home(){
             if(Auth::check()){
 
-              $arquivos = Db::connection('mysql')->table('arquivos')->get()->all();
+              $arquivos = Db::connection('mysql')->table('arquivos')->select()->where('user_id','=',Auth::user()->id)->get();
               return view('App/home',['arquivos' => $arquivos]);
 
             }else{

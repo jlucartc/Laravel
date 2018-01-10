@@ -11,21 +11,6 @@
 |
 */
 
-/*Route::get('images/{filename}', function ($filename)
-{
-    $path = storage_path().$filename;
-
-    if(!File::exists($path)) abort(404);
-
-    $file = File::get($path);
-    $type = File::mimeType($path);
-
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-
-    echo $response;
-
-})->name('images');*/
 
 Route::get('arquivo','ViewsController@arquivo')->name('arquivo');
 
@@ -47,4 +32,4 @@ Route::get('adicionar','HomeController@adicionar')->name('adicionar')->middlewar
 
 Route::get('info','HomeController@info')->name('info')->middleware('info');
 
-Route::get('/','HomeController@index');
+Route::get('/','ViewsController@home');

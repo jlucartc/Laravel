@@ -1,6 +1,6 @@
 <nav class="navbar bg-dark navbar-expand-lg navbar-dark fixed-top">
   <div class="container">
-    <a href="{{ action('HomeController@index') }}" class="navbar-brand">Olá, mundo!<a>
+    <a href="{{ action('HomeController@index') }}" class="navbar-brand">Olá, {{ Auth::user()->name }}!<a>
 
       <ul class="navbar-nav">
         <li class="nav-item"> <a class="nav-link" href="{{ route('adicionar') }}"><span class="fa fa-plus"></span></a></li>
