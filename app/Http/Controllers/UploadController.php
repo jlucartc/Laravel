@@ -25,8 +25,11 @@ class UploadController extends Controller
 
         $f_rota = $diskName.'/'.$rota;
 
-        DB::connection('mysql')->insert('insert into arquivos(user_id,disk,nome,tamanho,rota) values(?,?,?,?,?)',[Auth::user()->id,$diskName,$nome,(Storage::disk($diskName)->size($rota))/1000,$f_rota]);
+        date_default_timezone_set('America/Fortaleza');
 
+        $data = date("Y-m-d H:i:s");
+
+        DB::connection('mysql')->insert('insert into arquivos(user_id,disk,nome,tamanho,rota,created_at,updated_at) values(?,?,?,?,?,?,?)',[Auth::user()->id,$diskName,$nome,(Storage::disk($diskName)->size($rota))/1000,$f_rota,$data,$data]);
 
         return redirect('/');
 

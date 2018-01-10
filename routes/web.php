@@ -27,7 +27,7 @@
 
 })->name('images');*/
 
-Route::get('arquivo','ViewsController@arquivo');
+Route::get('arquivo','ViewsController@arquivo')->name('arquivo');
 
 Route::post('imagem','UploadController@imagem')->name('imagem');
 

@@ -49,4 +49,10 @@ class ViewsController extends Controller
       ///
 
     }
+
+    public function arquivo(Request $request){
+
+      echo view('App/tela-arquivo',['rota' => $request->rota]);
+
+    }
 }
