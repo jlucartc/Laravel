@@ -6,7 +6,7 @@
   <div class="row">
   <div class="col"></div>
   <div class="col-8">
-    @if($arquivos->isEmpty())
+    @if(!isset($arquivos))
     <div class="jumbotron">
       <h2>Bem Vindo</h2>
     </div>

@@ -26,10 +26,10 @@ Route::get('esqueci-senha','Auth\RegisterController@esqueciSenha')->name('esquec
 
 Route::get('logout','Auth\LoginController@logout')->name('logout');
 
-Route::get('home','HomeController@index')->name('home')->middleware('autorizar');
+//Route::get('home','HomeController@index')->name('home')->middleware('autorizar');
 
 Route::get('adicionar','HomeController@adicionar')->name('adicionar')->middleware('autorizar');
 
 Route::get('info','HomeController@info')->name('info')->middleware('info');
 
-Route::get('/','ViewsController@home');
+Route::get('/','ViewsController@home')->name('/');

@@ -14,7 +14,17 @@ class ViewsController extends Controller
             if(Auth::check()){
 
               $arquivos = Db::connection('mysql')->table('arquivos')->select()->where('user_id','=',Auth::user()->id)->get();
-              return view('App/home',['arquivos' => $arquivos]);
+
+              if($arquivos->isEmpty()){
+
+                  return view('App/home');
+
+              }else{
+
+                  return view('App/home',['arquivos' => $arquivos]);
+
+              }
+
 
             }else{
 
