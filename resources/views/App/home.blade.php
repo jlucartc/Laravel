@@ -1,7 +1,7 @@
 <!--Tela inicial da aplicação-->
 @extends('master')
 @section('content')
-@include('logged')
+@include('nav')
 <div class="container">
   <div class="row">
   <div class="col"></div>

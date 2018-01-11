@@ -1,7 +1,7 @@
 <!--Tela responsável por ver detalhes e opções de um arquivo-->
 @extends('master')
 @section('content')
-@include('logged')
+@include('nav')
 <div class="container">
 <div class="row justify-content-center">
   <div class=""></div>
