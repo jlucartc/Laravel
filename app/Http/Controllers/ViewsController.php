@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ViewsController extends Controller
 {
+
     public function home(Request $request){
 
             if(Auth::check()){
@@ -44,7 +45,6 @@ class ViewsController extends Controller
 
     }
 
-
     public function info(){
 
       return view('App/tela-arquivo');
@@ -57,15 +57,7 @@ class ViewsController extends Controller
 
     }
 
-    public function remover(){
-
-        ///
-
-    }
-
     public function pesquisar(Request $request){
-
-        $driver = "mysql";
 
         $pesquisa = $request->pesquisa;
 
@@ -156,9 +148,11 @@ class ViewsController extends Controller
 
     public function arquivo(Request $request){
 
-      $arquivo = $request->arquivo;
+      $id = $request->id;
 
-      return view('App/tela-arquivo',['arquivo' => $arquivo]);
+      $res = DB::select('select * from arquivos where id = ?',[$id]);
+
+      return view('App/tela-arquivo',['arquivo' => (array)$res[0]]);
 
     }
 
