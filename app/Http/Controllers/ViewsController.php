@@ -39,7 +39,7 @@ class ViewsController extends Controller
 
             }else{
 
-              return view('login');
+              return view('login2');
 
             }
 
