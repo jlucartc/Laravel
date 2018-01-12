@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('pesquisar','ViewsController@pesquisar')->name('pesquisar');
+
 Route::get('deletarImagem','ViewsController@deletarImagem')->name('deletarImagem');
 
 Route::get('arquivo','ViewsController@arquivo')->name('arquivo');
