@@ -17,7 +17,7 @@
                 <div class="card mb-4">
                   <a href="{{ route('arquivo',['rota' => $arquivo->rota]) }}"> <img class="card-img-top" src="{{ asset($arquivo->rota) }}" alt=""> </a>
                   <div class="card-body">
-                      <p>{{ $arquivo->nome }}</p>
+                      <p class="text-truncate" data-toggle="tooltip" title="{{$arquivo->nome}}">{{ $arquivo->nome }}</p>
                   </div>
                 </div>
             </div>

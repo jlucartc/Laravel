@@ -18,11 +18,10 @@ class ViewsController extends Controller
 
                   $arquivos = $request->session()->get('arquivos');
                   $arquivos = (Object)$arquivos;
-                  //print_r($arquivos);
+
               }else{
 
                   $arquivos = DB::connection('mysql')->table('arquivos')->select()->where('user_id','=',Auth::user()->id)->get();
-                  //print_r(count($arquivos));
               }
 
 
@@ -128,11 +127,8 @@ class ViewsController extends Controller
 
         $arquivos = DB::select($query,array_values($params));
 
-
         print_r($arquivos);
-        //echo $query;
-        //print_r($params);
-        //print_r(array_values($params));
+
         if(count($arquivos) == 0){
 
             return redirect('/');

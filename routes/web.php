@@ -11,6 +11,8 @@
 |
 */
 
+Route::post('renomear','ViewsController@renomear')->name('renomear');
+
 Route::get('pesquisar','ViewsController@pesquisar')->name('pesquisar');
 
 Route::get('deletarImagem','ViewsController@deletarImagem')->name('deletarImagem');
