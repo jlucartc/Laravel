@@ -64,6 +64,8 @@ class ViewsController extends Controller
 
         $isnull = 0;
 
+        $params = array();
+
         foreach ($palavras as $palavra) {
           if(empty($palavra)){
               $isnull = 1;
@@ -73,50 +75,54 @@ class ViewsController extends Controller
 
         if(!$isnull){
 
-        foreach ($palavras as $palavra) {
-          $array[] = $palavra;
-          if(!($palavra[0] == '"' && $palavra[strlen($palavra)-1] == '"')){
-            if(substr_count($palavra,"-") >= 1){
+            foreach ($palavras as $palavra) {
+                $array[] = $palavra;
+                if(!($palavra[0] == '"' && $palavra[strlen($palavra)-1] == '"')){
+                    if(substr_count($palavra,"-") >= 1){
 
-                $array = array_merge($array,explode("-",$palavra));
+                          $array = array_merge($array,explode("-",$palavra));
 
+                    }
+                }
             }
-          }
 
+            foreach($array as $arr){
+                $arr = "'%".$arr."%'";
+                $params[] = $arr;
+                $params[] = strtolower($arr);
+                //echo $array[count($array)-1];
+                $params[] = strtoupper($arr);
+                $na_arr = $arr;
+                $na_arr = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$na_arr);
+                $params[] = $na_arr;
+                $params[] = strtolower($na_arr);
+                $params[] = strtoupper($na_arr);
+            }
 
-          foreach($array as $arr){
-            $array[] = strtolower($arr);
-            $array[] = strtoupper($arr);
-            $na_arr = $arr;
-            $na_arr = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$na_arr);
-            $array[] = $na_arr;
-            $array[] = strtolower($na_arr);
-            $array[] = strtoupper($na_arr);
-            $array[] = $arr;
-          }
+            $params = array_unique($params);
+
+            $query = "SELECT * FROM arquivos WHERE nome LIKE ?";
+
         }
 
-        $array = array_unique($array);
+        if(count($params) > 1){
 
-        $query = "select * from arquivos where nome = ?";
-
-        if(count($array) > 1){
-
-            $query = implode(" ",array_merge(array($query),array(str_repeat(" or ?",count($array)-1))));
+            $query = implode(" ",array_merge(array($query),array(str_repeat(" OR nome LIKE ?",count($params)-1))));
             $query = trim($query);
+            $query = $query;
+
         }else{
 
           return redirect('/');
 
         }
 
-        DB::connection($driver)->select()->get();
+        $arquivos = DB::select($query,$params)->get();
 
-        //echo $query;
+        echo $query;
+        echo count($params);
 
-    }
-
-      //return redirect('/');
+        //return view('App/home',['arquivos' => $arquivos]);
 
     }
 
