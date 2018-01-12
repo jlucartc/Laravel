@@ -10,12 +10,23 @@ use Illuminate\Support\Facades\Storage;
 
 class ViewsController extends Controller
 {
-    public function home(){
+    public function home(Request $request){
+
             if(Auth::check()){
 
-              $arquivos = Db::connection('mysql')->table('arquivos')->select()->where('user_id','=',Auth::user()->id)->get();
+              if($request->session()->get('arquivos')){
 
-              if($arquivos->isEmpty()){
+                  $arquivos = $request->session()->get('arquivos');
+                  $arquivos = (Object)$arquivos;
+                  //print_r($arquivos);
+              }else{
+
+                  $arquivos = DB::connection('mysql')->table('arquivos')->select()->where('user_id','=',Auth::user()->id)->get();
+                  //print_r(count($arquivos));
+              }
+
+
+              if(count($arquivos) < 1){
 
                   return view('App/home');
 
@@ -31,6 +42,7 @@ class ViewsController extends Controller
               return view('login');
 
             }
+
     }
 
 
@@ -79,18 +91,15 @@ class ViewsController extends Controller
                 $array[] = $palavra;
                 if(!($palavra[0] == '"' && $palavra[strlen($palavra)-1] == '"')){
                     if(substr_count($palavra,"-") >= 1){
-
-                          $array = array_merge($array,explode("-",$palavra));
-
+                        $array = array_merge($array,explode("-",$palavra));
                     }
                 }
             }
 
             foreach($array as $arr){
-                $arr = "'%".$arr."%'";
+                $arr = "%".$arr."%";
                 $params[] = $arr;
                 $params[] = strtolower($arr);
-                //echo $array[count($array)-1];
                 $params[] = strtoupper($arr);
                 $na_arr = $arr;
                 $na_arr = preg_replace(array("/(á|à|ã|â|ä)/","/(Á|À|Ã|Â|Ä)/","/(é|è|ê|ë)/","/(É|È|Ê|Ë)/","/(í|ì|î|ï)/","/(Í|Ì|Î|Ï)/","/(ó|ò|õ|ô|ö)/","/(Ó|Ò|Õ|Ô|Ö)/","/(ú|ù|û|ü)/","/(Ú|Ù|Û|Ü)/","/(ñ)/","/(Ñ)/"),explode(" ","a A e E i I o O u U n N"),$na_arr);
@@ -101,13 +110,13 @@ class ViewsController extends Controller
 
             $params = array_unique($params);
 
-            $query = "SELECT * FROM arquivos WHERE nome LIKE ?";
+            $query = 'SELECT * FROM arquivos WHERE nome LIKE ?';
 
         }
 
         if(count($params) > 1){
 
-            $query = implode(" ",array_merge(array($query),array(str_repeat(" OR nome LIKE ?",count($params)-1))));
+            $query = implode(" ",array_merge(array($query),array(str_repeat('OR nome LIKE ? ',count($params)-1))));
             $query = trim($query);
             $query = $query;
 
@@ -117,12 +126,20 @@ class ViewsController extends Controller
 
         }
 
-        $arquivos = DB::select($query,$params)->get();
+        $arquivos = DB::select($query,array_values($params));
 
-        echo $query;
-        echo count($params);
 
-        //return view('App/home',['arquivos' => $arquivos]);
+        print_r($arquivos);
+        //echo $query;
+        //print_r($params);
+        //print_r(array_values($params));
+        if(count($arquivos) == 0){
+
+            return redirect('/');
+
+        }
+
+        return redirect('/')->with('arquivos',$arquivos);
 
     }
 
