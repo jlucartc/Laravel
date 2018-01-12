@@ -127,7 +127,7 @@ class ViewsController extends Controller
 
         $arquivos = DB::select($query,array_values($params));
 
-        print_r($arquivos);
+        //print_r($arquivos);
 
         if(count($arquivos) == 0){
 
@@ -139,15 +139,26 @@ class ViewsController extends Controller
 
     }
 
-    public function renomear(){
+    public function renomear(Request $request){
 
-      ///
+      if(isset($request->nome)){
 
+        DB::update('update arquivos set nome = ? where id = ?',[$request->nome,$request->arquivo['id']]);
+        $arquivo = DB::select('select * from arquivos where id = ?',[$request->arquivo['id']]);
+        return redirect()->route('arquivo',['arquivo' => (array)$arquivo[0]]);
+
+      }else{
+
+        return redirect('/');
+
+      }
     }
 
     public function arquivo(Request $request){
 
-      echo view('App/tela-arquivo',['rota' => $request->rota]);
+      $arquivo = $request->arquivo;
+
+      return view('App/tela-arquivo',['arquivo' => $arquivo]);
 
     }
 

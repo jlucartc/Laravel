@@ -15,7 +15,7 @@
         @foreach($arquivos as $arquivo)
             <div class="col-sm-4">
                 <div class="card mb-4">
-                  <a href="{{ route('arquivo',['rota' => $arquivo->rota]) }}"> <img class="card-img-top" src="{{ asset($arquivo->rota) }}" alt=""> </a>
+                  <a href="{{ route('arquivo',['arquivo' => $arquivo]) }}"> <img class="card-img-top" src="{{ asset($arquivo->rota) }}" alt=""> </a>
                   <div class="card-body">
                       <p class="text-truncate" data-toggle="tooltip" title="{{$arquivo->nome}}">{{ $arquivo->nome }}</p>
                   </div>

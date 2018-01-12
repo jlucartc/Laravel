@@ -1,7 +1,8 @@
 <nav class="navbar bg-dark navbar-expand-sm navbar-dark fixed-top">
   <div class="container">
     <a href="{{ route('/') }}" class="navbar-brand">Olá, {{ Auth::user()->name }}!<a>
-      <form class="form-inline" action="{{ route('pesquisar') }}" method="get">
+      <form class="form-inline" action="{{ route('pesquisar') }}" method="post">
+          {{ csrf_field() }}
           <input class="form-control mr-1" type="text" name="pesquisa" value="" autocomplete="off" placeholder="Pesquisar">
           <button class="btn btn-secondary" type="submit" name="button"><span class="fa fa-search"></span></button>
       </form>
