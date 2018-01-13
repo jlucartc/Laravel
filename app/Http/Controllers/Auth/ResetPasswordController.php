@@ -36,4 +36,11 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function resetForm(){
+
+      return view('reset.blade.php');
+
+    }
+
 }

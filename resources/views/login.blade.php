@@ -1,28 +1,45 @@
-<!--Tela de login-->
 @extends('master')
 @section('content')
-  <div class="row">
-      <div class="col"></div>
-      <div class="col-6">
-          <div class="card">
-                <form class="form" action="{{ route('login') }}" method="post">
-                    {{ csrf_field() }}
-                  <div class="card-body">
-                      <div class="form-group"><input class="form-control" type="text" name="email" value="" placeholder="Digite seu login" autocomplete="username"></div>
-                      <div class="form-group"><input class="form-control" type="password" name="password" value="" placeholder="Digite sua senha" autocomplete="current-password"></div>
-                      <!--<div class="form-check">
-                          <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="lembrar" value=""> Lembrar
-                          </label>
-                      </div>-->
-                      <button class="btn btn-primary btn-block" type="submit" name="button">Ir</button>
-                  </div>
-                  <div class="card-footer">
-                      <div class="col"><a href="esqueci-senha" class="text-sm">Esqueci minha senha</a></div><div class="col"><a href="registrar">Fazer cadastro</a></div>
-                  </div>
-                </form>
-          </div>
-      </div>
-      <div class="col"></div>
+<div class="navbar fixed-top bg-dark">
+  <a href="#" class="navbar-brand"><span class="fa fa-rebel"></span> </a>
+  <div class="d-flex justify-content-end mr-4">
+    <form class="form-inline d-inline-flex float-right" action="{{ route('login') }}" method="post">
+      {{ csrf_field() }}
+      <input class="form-control mr-1" type="text" name="email" value="" autofocus autocomplete="username" placeholder="Digite seu email">
+      <input class="form-control mr-1" type="password" name="password" value="" autocomplete="password" placeholder="Digite sua senha">
+      <button class="btn btn-secondary" type="submit" name="button">Entrar</button>
+    </form>
+    <a class="nav-link" href="{{ route('esqueci-senha') }}"><small>Esqueceu a senha?</small></a>
+  </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Faça o seu cadastro</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" action="{{ route('register') }}" method="post">
+                        {{ csrf_field() }}
+                        <input class="form-control mb-2" id="nome" type="text" name="nome" value="" autocomplete="off" placeholder="Digite seu nome">
+                        <input class="form-control mb-2" id="email" type="email" name="email" value="" autocomplete="email" placeholder="Digite seu email">
+                        <input class="form-control mb-2" id="senha" type="password" name="senha" value="" autocomplete="password" placeholder="Digite sua senha">
+                        <input class="form-control mb-2" id="senha_confirmed" type="password" name="senha_confirmation" value="" autocomplete="password" placeholder="Confirme sua senha">
+                        <button class="btn btn-success" type="submit" name="button">Cadastrar</button>
+                    </form>
+                    @if($errors->any())
+                      @foreach($errors->all() as $err)
+                        <div class="alert-danger">
+                          {{ $err }}
+                        </div>
+                      @endforeach
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+
 @endsection

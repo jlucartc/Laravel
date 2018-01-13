@@ -39,7 +39,7 @@ class ViewsController extends Controller
 
             }else{
 
-              return view('login2');
+              return view('login');
 
             }
 
@@ -101,13 +101,24 @@ class ViewsController extends Controller
 
             $params = array_unique($params);
 
-            $query = 'SELECT * FROM arquivos WHERE nome LIKE ?';
+            $new = array();
+
+            for($i = 0; $i < count($params)/2; $i++){
+
+              $new[] = Auth::user()->id;
+              $new[] = $params[$i];
+
+            }
+
+            $params = $new;
+
+            $query = 'SELECT * FROM arquivos WHERE user_id = ? AND nome LIKE ?';
 
         }
 
         if(count($params) > 1){
 
-            $query = implode(" ",array_merge(array($query),array(str_repeat('OR nome LIKE ? ',count($params)-1))));
+            $query = implode(" ",array_merge(array($query),array(str_repeat('OR user_id = ? AND nome LIKE ? ',count($params)/2-1))));
             $query = trim($query);
             $query = $query;
 
@@ -116,6 +127,8 @@ class ViewsController extends Controller
           return redirect('/');
 
         }
+
+        //print_r($params);
 
         $arquivos = DB::select($query,array_values($params));
 
@@ -137,7 +150,8 @@ class ViewsController extends Controller
 
         DB::update('update arquivos set nome = ? where id = ?',[$request->nome,$request->arquivo['id']]);
         $arquivo = DB::select('select * from arquivos where id = ?',[$request->arquivo['id']]);
-        return redirect()->route('arquivo',['arquivo' => (array)$arquivo[0]]);
+        //print_r($arquivo[0]->id);
+        return redirect()->route('arquivo',['id' => $arquivo[0]->id]);
 
       }else{
 
@@ -152,7 +166,9 @@ class ViewsController extends Controller
 
       $res = DB::select('select * from arquivos where id = ?',[$id]);
 
-      return view('App/tela-arquivo',['arquivo' => (array)$res[0]]);
+      //print_r((array)$res['0']);
+
+      return view('App/tela-arquivo',['arquivo' => (array)$res['0']]);
 
     }
 

@@ -11,6 +11,14 @@
 |
 */
 
+//Auth::Routes();
+
+Route::post('resetarSenha','Auth\ForgotPasswordController@sendResetLinkEmail')->name('resetarSenha');
+
+Route::get('resetForm','Auth\ResetPasswordController@resetForm')->name('password.reset');
+
+Route::post('reset','Auth\ResetPasswordController@reset')->name('reset');
+
 Route::post('renomear','ViewsController@renomear')->name('renomear');
 
 Route::post('pesquisar','ViewsController@pesquisar')->name('pesquisar');
@@ -29,9 +37,7 @@ Route::get('registrar','Auth\RegisterController@registrar')->name('registrar');
 
 Route::get('esqueci-senha','Auth\RegisterController@esqueciSenha')->name('esqueci-senha');
 
-Route::get('logout','Auth\LoginController@logout')->name('logout');
-
-//Route::get('home','HomeController@index')->name('home')->middleware('autorizar');
+Route::post('logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('adicionar','HomeController@adicionar')->name('adicionar')->middleware('autorizar');
 
