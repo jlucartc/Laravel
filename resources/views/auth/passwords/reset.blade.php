@@ -8,10 +8,10 @@
                 <div class="panel-heading">Reset Password</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('reset') }}">
                         {{ csrf_field() }}
 
-                        <input type="hidden" name="token" value="{{ $token }}">
+                        {{ Password::token() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -61,6 +61,13 @@
                                 </button>
                             </div>
                         </div>
+                        @if($errors->any())
+                          @foreach($errors->all() as $err)
+                            <div class="alert-danger">
+                              {{ $err }}
+                            </div>
+                          @endforeach
+                        @endif
                     </form>
                 </div>
             </div>

@@ -37,7 +37,7 @@ Route::get('registrar','Auth\RegisterController@registrar')->name('registrar');
 
 Route::get('esqueci-senha','Auth\RegisterController@esqueciSenha')->name('esqueci-senha');
 
-Route::post('logout','Auth\LoginController@logout')->name('logout');
+Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('adicionar','HomeController@adicionar')->name('adicionar')->middleware('autorizar');
 
