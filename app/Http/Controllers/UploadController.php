@@ -6,30 +6,81 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use upload;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadController extends Controller
 {
     public function imagem(Request $request){
 
-        $diskName = 'usuarios';
+        $imagem = new upload($request->arquivo);
 
-        $standardName = "imagem";
+        if($imagem->uploaded){
 
-        $nome = ($request->nome == NULL) ? $request->arquivo->hashName() : $request->nome;
+          $imagem->image_resize = true;
+          $imagem->image_x = 1920;
+          $imagem->image_ratio_y = false;
+          $imagem->image_y = 1080;
+          $imagem = $imagem->process();
 
-        $rota = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/imagens',$request->arquivo,$nome);
+          $diskName = 'usuarios';
 
-        $f_rota = $diskName.'/'.$rota;
+          $standardName = "imagem";
 
-        date_default_timezone_set('America/Fortaleza');
+          $hashName = $request->arquivo->hashName();
 
-        $data = date("Y-m-d H:i:s");
+          $nome = ($request->nome == NULL) ? $hashName : $request->nome;
 
-        $nome = ($request->nome == NULL) ? $standardName : $request->nome;
+          $imagem = imagecreatefromstring($imagem);
 
-        DB::connection('mysql')->insert('insert into arquivos(user_id,disk,nome,tamanho,rota,created_at,updated_at) values(?,?,?,?,?,?,?)',[Auth::user()->id,$diskName,$nome,(Storage::disk($diskName)->size($rota))/1000,$f_rota,$data,$data]);
+          if($imagem){
 
-        return redirect('/');
+            $path = storage_path('app/usuarios')."/imagens/".Auth::user()->id."/";
+
+            if (!file_exists($path)) {
+                  mkdir($path, 0777, true);
+            }
+
+            $path = $path.$nome;
+
+            imagejpeg($imagem,$path,100);
+            imagedestroy($imagem);
+            $imagem = new UploadedFile($path,$nome);
+
+            $rota = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/imagens',$imagem,$nome);
+
+            $f_rota = $diskName.'/'.$rota;
+
+            date_default_timezone_set('America/Fortaleza');
+
+            $data = date("Y-m-d H:i:s");
+
+            $nome = ($request->nome == NULL) ? $standardName : $request->nome;
+
+            DB::connection('mysql')->insert('insert into arquivos(user_id,disk,nome,tamanho,rota,created_at,updated_at) values(?,?,?,?,?,?,?)',[Auth::user()->id,$diskName,$nome,(Storage::disk($diskName)->size($rota))/1000,$f_rota,$data,$data]);
+
+            return redirect('/');
+
+          }
+
+          /*
+          $rota = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/imagens',$request->arquivo,$nome);
+
+          $f_rota = $diskName.'/'.$rota;
+
+          date_default_timezone_set('America/Fortaleza');
+
+          $data = date("Y-m-d H:i:s");
+
+          $nome = ($request->nome == NULL) ? $standardName : $request->nome;
+
+          DB::connection('mysql')->insert('insert into arquivos(user_id,disk,nome,tamanho,rota,created_at,updated_at) values(?,?,?,?,?,?,?)',[Auth::user()->id,$diskName,$nome,(Storage::disk($diskName)->size($rota))/1000,$f_rota,$data,$data]);
+
+          return redirect('/');*/
+
+
+        }
+
 
     }
 
