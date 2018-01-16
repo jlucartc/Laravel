@@ -35,7 +35,7 @@ class UploadController extends Controller
 
           if($imagem){
 
-            $path = storage_path('app/usuarios')."/imagens/".Auth::user()->id."/";
+            $path = storage_path('app/usuarios')."/".Auth::user()->id."/tmp/"."imagens/";
 
             if (!file_exists($path)) {
                   mkdir($path, 0777, true);
@@ -48,6 +48,10 @@ class UploadController extends Controller
             $imagem = new UploadedFile($path,$nome);
 
             $rota = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/imagens',$imagem,$nome);
+            $rota_tmp = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/tmp/imagens',$imagem,$nome);
+
+            Storage::disk('usuarios')->delete($rota_tmp);
+
 
             $f_rota = $diskName.'/'.$rota;
 
