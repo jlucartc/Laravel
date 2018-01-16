@@ -97,9 +97,9 @@ class ArquivosController extends Controller
     return redirect('/');
   }
 
-  public function download($rota){
+  public function download(Request $request){
 
-    return response()->download($rota);
+    return response()->download($request->rota);
 
   }
 

@@ -13,7 +13,7 @@
 
 //Auth::Routes();
 
-Route::get('download/{$rota}','ArquivosController@download')->name('download');
+Route::post('download','ArquivosController@download')->name('download');
 
 Route::post('resetarSenha','Auth\ForgotPasswordController@sendResetLinkEmail')->name('resetarSenha');
 

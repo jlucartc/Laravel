@@ -15,13 +15,14 @@
       <div class="card-body border border-bottom-0 border-secondary">
         <img class="card-img-top border border-secondary" src="{{ asset($arquivo['rota']) }}" alt="">
       </div>
-      <div class="card-footer border border-secondary justify-content-middle">
+      <div class="card-footer border border-secondary justify-content-center">
           <!--<a href="#" class="btn btn-primary" type="button" name="button">Button 1</a>-->
-            <!--<form class="form d-inline-flex" action="{{ route('deletar',['rota' => $arquivo['rota']]) }}" method="post">
-                {{ csrf_field() }}-->
+            <form class="form d-inline-flex" action="{{ route('download',['rota' => $arquivo['rota']]) }}" method="post">
+                {{ csrf_field() }}
                 <button type="button" class="btn btn-danger mr-1" name="button" data-toggle="modal" data-target="#confirmarDelecao">Deletar</button>
-                <button class="btn btn-success" type="button" name="button" data-toggle="modal" data-target="#renomear">Renomear</button>
-            <!--</form>-->
+                <button class="btn btn-primary mr-1" type="button" name="button" data-toggle="modal" data-target="#renomear">Renomear</button>
+                <button type="submit" class="btn btn-success" name="button">Download</button>
+            </form>
             <!--<a href="#" class="btn btn-danger" type="button" name="button">Deletar</a>-->
           <!--<a href="#" type="button" name="button" data-toggle="modal" data-target="#renomear">Renomear</a>-->
           <div class="modal fade" id="renomear">
