@@ -144,22 +144,6 @@ class ViewsController extends Controller
 
     }
 
-    public function renomear(Request $request){
-
-      if(isset($request->nome)){
-
-        DB::update('update arquivos set nome = ? where id = ?',[$request->nome,$request->arquivo['id']]);
-        $arquivo = DB::select('select * from arquivos where id = ?',[$request->arquivo['id']]);
-        //print_r($arquivo[0]->id);
-        return redirect()->route('arquivo',['id' => $arquivo[0]->id]);
-
-      }else{
-
-        return redirect('/');
-
-      }
-    }
-
     public function arquivo(Request $request){
 
       $id = $request->id;
@@ -168,15 +152,5 @@ class ViewsController extends Controller
 
       return view('App/tela-arquivo',['arquivo' => (array)$res['0']]);
 
-    }
-
-    public function deletarImagem(Request $request){
-
-      $arquivo = DB::table('arquivos')->select()->where('rota','=',$request->rota)->get()->first();
-      DB::delete('delete from arquivos where rota = ?',[$request->rota]);
-
-      Storage::delete($arquivo->rota);
-
-      return redirect('/');
     }
 }

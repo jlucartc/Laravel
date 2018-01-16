@@ -11,8 +11,6 @@
 |
 */
 
-//Auth::Routes();
-
 Route::post('download','ArquivosController@download')->name('download');
 
 Route::post('resetarSenha','Auth\ForgotPasswordController@sendResetLinkEmail')->name('resetarSenha');

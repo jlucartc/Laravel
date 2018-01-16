@@ -51,10 +51,4 @@ class HomeController extends Controller
         return view('App/tela-arquivo');
 
     }
-
-    public function imagem(){
-
-        return "<img src='".Storage::disk('publico')->url('/1/Shrek.jpg')."' style='width:300;height:300;'>";
-
-    }
 }
