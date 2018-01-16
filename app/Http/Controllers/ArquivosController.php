@@ -41,14 +41,14 @@ class ArquivosController extends Controller
                 mkdir($path, 0777, true);
           }
 
-          $path = $path.$nome;
+          $path = $path.$hashName;
 
           imagejpeg($imagem,$path,100);
           imagedestroy($imagem);
-          $imagem = new UploadedFile($path,$nome);
+          $imagem = new UploadedFile($path,$hashName);
 
-          $rota = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/imagens',$imagem,$nome);
-          $rota_tmp = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/tmp/imagens',$imagem,$nome);
+          $rota = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/imagens',$imagem,$hashName);
+          $rota_tmp = Storage::disk($diskName)->putFileAs(Auth::user()->id.'/tmp/imagens',$imagem,$hashName);
 
           Storage::disk('usuarios')->delete($rota_tmp);
 
