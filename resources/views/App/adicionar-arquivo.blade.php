@@ -12,7 +12,7 @@
             <h4 class="text-center">Adicionar arquivo</h4>
           </div>
           <div class="card-body">
-            <form class="" action="{{ route('imagem') }}" method="post" enctype="multipart/form-data">
+            <form class="" action="{{ route('upload') }}" method="post" enctype="multipart/form-data">
               {{ csrf_field() }}
               <div class="form-group"><input class="form-control" type="text" name="nome" value="" autocomplete="off" placeholder="Digite o nome do arquivo"></div>
               <div class="form-group"><input class="form-control" type="file" name="arquivo" value=""></div>

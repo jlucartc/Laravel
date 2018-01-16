@@ -17,11 +17,11 @@
       </div>
       <div class="card-footer border border-secondary justify-content-middle">
           <!--<a href="#" class="btn btn-primary" type="button" name="button">Button 1</a>-->
-            <form class="form d-inline-flex" action="{{ route('deletarImagem',['rota' => $arquivo['rota']]) }}" method="post">
-                {{ csrf_field() }}
+            <!--<form class="form d-inline-flex" action="{{ route('deletar',['rota' => $arquivo['rota']]) }}" method="post">
+                {{ csrf_field() }}-->
                 <button type="button" class="btn btn-danger mr-1" name="button" data-toggle="modal" data-target="#confirmarDelecao">Deletar</button>
                 <button class="btn btn-success" type="button" name="button" data-toggle="modal" data-target="#renomear">Renomear</button>
-            </form>
+            <!--</form>-->
             <!--<a href="#" class="btn btn-danger" type="button" name="button">Deletar</a>-->
           <!--<a href="#" type="button" name="button" data-toggle="modal" data-target="#renomear">Renomear</a>-->
           <div class="modal fade" id="renomear">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="">
-                        <form class="form d-inline-flex" action="{{ route('deletarImagem',['rota' => $arquivo['rota']]) }}" method="post">
+                        <form class="form d-inline-flex" action="{{ route('deletar',['rota' => $arquivo['rota']]) }}" method="post">
                           {{ csrf_field() }}
                           <button class="btn btn-secondary mr-1" type="submit" name="button">Sim</button>
                           <button class="btn btn-primary" type="button" name="button" data-dismiss="modal" autofocus>Não</button>

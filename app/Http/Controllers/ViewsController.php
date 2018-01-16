@@ -166,8 +166,6 @@ class ViewsController extends Controller
 
       $res = DB::select('select * from arquivos where id = ?',[$id]);
 
-      //print_r((array)$res['0']);
-
       return view('App/tela-arquivo',['arquivo' => (array)$res['0']]);
 
     }

@@ -13,21 +13,23 @@
 
 //Auth::Routes();
 
+Route::get('download/{$rota}','ArquivosController@download')->name('download');
+
 Route::post('resetarSenha','Auth\ForgotPasswordController@sendResetLinkEmail')->name('resetarSenha');
 
 Route::get('resetForm','Auth\ResetPasswordController@resetForm')->name('password.reset');
 
 Route::post('reset','Auth\ResetPasswordController@reset')->name('reset');
 
-Route::post('renomear','ViewsController@renomear')->name('renomear');
+Route::post('renomear','ArquivosController@renomear')->name('renomear');
 
 Route::post('pesquisar','ViewsController@pesquisar')->name('pesquisar');
 
-Route::post('deletarImagem','ViewsController@deletarImagem')->name('deletarImagem');
+Route::post('deletar','ArquivosController@deletar')->name('deletar');
 
 Route::get('arquivo','ViewsController@arquivo')->name('arquivo');
 
-Route::post('imagem','UploadController@imagem')->name('imagem');
+Route::post('upload','ArquivosController@upload')->name('upload');
 
 Route::post('login','Auth\LoginController@login')->name('login');
 
